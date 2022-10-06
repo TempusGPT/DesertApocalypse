@@ -24,7 +24,7 @@ public class TileTransform : MonoBehaviour {
     private async UniTask SetTile(Tile value) {
         await transform
             .DOMove(value.transform.position, MoveDuration)
-            .SetEase(Ease.OutCubic)
+            .SetEase(Ease.Linear)
             .OnComplete(() => {
                 Current = value;
                 OnTileSet?.Invoke();
