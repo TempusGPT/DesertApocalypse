@@ -9,14 +9,14 @@ public class TileTransform : MonoBehaviour {
     private const float MoveDuration = 0.5f;
 
     [field: SerializeField]
-    public Tile Current { get; private set; }
+    public Tile Tile { get; private set; }
 
     private void Awake() {
-        transform.position = Current.transform.position;
+        transform.position = Tile.transform.position;
     }
 
     public async UniTask MoveTo(Tile targetTile) {
-        foreach (var pathTile in Pathfinder.Find(Current, targetTile)) {
+        foreach (var pathTile in Pathfinder.Find(Tile, targetTile)) {
             await SetTile(pathTile);
         }
     }
@@ -26,7 +26,7 @@ public class TileTransform : MonoBehaviour {
             .DOMove(value.transform.position, MoveDuration)
             .SetEase(Ease.Linear)
             .OnComplete(() => {
-                Current = value;
+                Tile = value;
                 OnTileSet?.Invoke();
             })
             .AsyncWaitForCompletion();

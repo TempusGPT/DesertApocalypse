@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     private void MoveToNearTile() {
-        var nearTiles = TileTransform.Current.NearTiles.Values;
+        var nearTiles = TileTransform.Tile.NearTiles.Values;
         var targetTile = nearTiles.ElementAt(Random.Range(0, nearTiles.Count));
         TileTransform.MoveTo(targetTile);
     }
