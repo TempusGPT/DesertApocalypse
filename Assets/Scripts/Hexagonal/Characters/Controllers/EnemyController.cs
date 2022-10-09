@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
 public class EnemyController : MonoBehaviour {
-    public static event Action OnBattleStart;
+    public static event Action OnMeetPlayer;
 
     [SerializeField]
     private MoveRule moveRule;
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour {
 
     private void HandlePlayerMove(Tile playerTile) {
         if (playerTile == TileTransform.Tile) {
-            OnBattleStart?.Invoke();
+            OnMeetPlayer?.Invoke();
         } else {
             moveRule.Move(TileTransform, playerTile);
         }
