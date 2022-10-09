@@ -22,7 +22,7 @@ public class TileTransform : MonoBehaviour {
             targetTile = destinationTile;
             return;
         }
-
+        
         targetTile = destinationTile;
         while (targetTile != null) {
             await MoveToDestination();

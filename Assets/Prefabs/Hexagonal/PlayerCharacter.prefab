@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03afcecce7fa4079933302b9f3bb262a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Current>k__BackingField: {fileID: 0}
+  <Tile>k__BackingField: {fileID: 0}
 --- !u!114 &1457855678874802470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_FlipX: 0
