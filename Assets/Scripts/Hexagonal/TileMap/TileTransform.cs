@@ -8,6 +8,7 @@ public class TileTransform : MonoBehaviour {
 
     private const float MoveDuration = 0.5f;
     private readonly Pathfinder pathfinder = new();
+    private Tile targetTile;
 
     [field: SerializeField]
     public Tile Tile { get; private set; }
@@ -16,10 +17,27 @@ public class TileTransform : MonoBehaviour {
         transform.position = Tile.transform.position;
     }
 
-    public async UniTask MoveTo(Tile targetTile) {
-        foreach (var pathTile in pathfinder.Find(Tile, targetTile)) {
-            await SetTile(pathTile);
+    public async UniTask MoveTo(Tile destinationTile) {
+        if (targetTile != null) {
+            targetTile = destinationTile;
+            return;
         }
+
+        targetTile = destinationTile;
+        while (targetTile != null) {
+            await MoveToDestination();
+        }
+    }
+
+    private async UniTask MoveToDestination() {
+        var destinationTile = targetTile;
+        foreach (var pathTile in pathfinder.Find(Tile, destinationTile)) {
+            await SetTile(pathTile);
+            if (targetTile != destinationTile) {
+                return;
+            }
+        }
+        targetTile = null;
     }
 
     private async UniTask SetTile(Tile value) {
