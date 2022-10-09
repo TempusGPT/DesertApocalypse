@@ -2,9 +2,9 @@ using System.Linq;
 using UnityEngine;
 
 public class ZakoMoveRule : MoveRule {
-    public override void Move(EnemyController controller, Tile playerTile) {
-        var nearTiles = controller.TileTransform.Tile.NearTiles.Values;
-        var targetTile = nearTiles.ElementAt(Random.Range(0, nearTiles.Count));
-        controller.TileTransform.MoveTo(targetTile);
+    public override void Move(TileTransform tileTransform, Tile targetTile) {
+        var nearTiles = tileTransform.Tile.NearTiles.Values;
+        var destinationTile = nearTiles.ElementAt(Random.Range(0, nearTiles.Count));
+        tileTransform.MoveTo(destinationTile);
     }
 }

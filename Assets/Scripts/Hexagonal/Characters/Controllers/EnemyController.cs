@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour {
         if (playerTile == TileTransform.Tile) {
             OnBattleStart?.Invoke();
         } else {
-            moveRule.Move(this, playerTile);
+            moveRule.Move(TileTransform, playerTile);
         }
     }
 }

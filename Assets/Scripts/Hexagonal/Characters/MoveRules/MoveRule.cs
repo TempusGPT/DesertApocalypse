@@ -1,5 +1,5 @@
 using UnityEngine;
 
 public abstract class MoveRule : MonoBehaviour {
-    public abstract void Move(EnemyController controller, Tile playerTile);
+    public abstract void Move(TileTransform tileTransform, Tile targetTile);
 }
