@@ -14,8 +14,8 @@ public class Tile : MonoBehaviour {
         OnClick?.Invoke(this);
     }
 
-    public static int Distance(Tile a, Tile b) {
-        return (int) Vector2.Distance(
+    public static float Distance(Tile a, Tile b) {
+        return Vector2.Distance(
             a.transform.position,
             b.transform.position
         );
