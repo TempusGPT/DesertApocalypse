@@ -374,7 +374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5332210210143545409, guid: 0e241bc6a80254c5e9a709a102faa233, type: 3}
       propertyPath: m_Name
-      value: EnemyCharacter
+      value: HumanWarrior
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e241bc6a80254c5e9a709a102faa233, type: 3}

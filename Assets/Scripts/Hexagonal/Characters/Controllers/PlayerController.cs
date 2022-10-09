@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
-public class PlayerController : MonoBehaviour, ITileObject {
+public class PlayerController : MonoBehaviour {
     public static PlayerController Instance { get; private set; }
     public TileTransform TileTransform { get; private set; }
 

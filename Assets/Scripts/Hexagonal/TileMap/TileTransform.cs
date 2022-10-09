@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 
 public class TileTransform : MonoBehaviour {
-    public event Action OnTileSet;
+    public event Action<Tile> OnTileSet;
 
     private const float MoveDuration = 0.5f;
     private readonly Pathfinder pathfinder = new();
@@ -29,7 +29,7 @@ public class TileTransform : MonoBehaviour {
             .SetEase(Ease.Linear)
             .OnComplete(() => {
                 Tile = value;
-                OnTileSet?.Invoke();
+                OnTileSet?.Invoke(value);
             })
             .AsyncWaitForCompletion();
     }
