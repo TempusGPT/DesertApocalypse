@@ -1,22 +1,19 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
 public class PlayerController : MonoBehaviour {
-    public static PlayerController Instance { get; private set; }
+    public static event Action<Tile> OnMove;
+
     public TileTransform TileTransform { get; private set; }
 
     private void Awake() {
-        if (Instance) {
-            Destroy(gameObject);
-        } else {
-            Instance = this;
-        }
-
         TileTransform = GetComponent<TileTransform>();
     }
 
     private void Start() {
         Tile.OnClick += MoveToClickedTile;
+        TileTransform.OnTileSet += NotifyMove;
     }
 
     private void MoveToClickedTile(Tile tile) {
@@ -24,5 +21,9 @@ public class PlayerController : MonoBehaviour {
             return;
         }
         TileTransform.MoveTo(tile);
+    }
+
+    private static void NotifyMove(Tile tile) {
+        OnMove?.Invoke(tile);
     }
 }

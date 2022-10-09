@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     private void Start() {
-        PlayerController.Instance.TileTransform.OnTileSet += HandlePlayerMove;
+        PlayerController.OnMove += HandlePlayerMove;
     }
 
     private void HandlePlayerMove(Tile playerTile) {

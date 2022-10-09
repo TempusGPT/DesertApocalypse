@@ -12,7 +12,6 @@ public class TileTransform : MonoBehaviour {
     [field: SerializeField]
     public Tile Tile { get; private set; }
 
-
     private void Awake() {
         transform.position = Tile.transform.position;
     }
