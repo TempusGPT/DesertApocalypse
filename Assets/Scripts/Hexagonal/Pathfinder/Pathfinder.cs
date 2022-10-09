@@ -7,6 +7,9 @@ public class Pathfinder {
     private readonly HashSet<Node> closedSet = new();
 
     public IEnumerable<Tile> Find(Tile startTile, Tile targetTile) {
+        if (startTile == targetTile) {
+            return Nothing();
+        }
         var (startNode, targetNode) = InitializeNode(startTile, targetTile);
 
         while (openSet.Count > 0) {
