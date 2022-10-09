@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
 
     private void HandlePlayerMove(Tile playerTile) {
         if (playerTile == TileTransform.Tile) {
+            Debug.Log("Player met enemy");
             OnMeetPlayer?.Invoke();
         } else {
             moveRule.Move(TileTransform, playerTile);

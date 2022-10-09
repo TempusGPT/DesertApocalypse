@@ -167,6 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97af40e5734844d3a389fe396a2bc559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 1457855678874802470, guid: 8766eeb8920ed430089736d9dff08294, type: 3}
+  zakoPrefab: {fileID: 5332210210143545411, guid: 0e241bc6a80254c5e9a709a102faa233, type: 3}
+  bossPrefab: {fileID: 5332210210143545411, guid: 3a3677bd3085d48799c1c2b0f777b805, type: 3}
   walkableTilePrefab: {fileID: 3849691322371409307, guid: 85a13cbd52e074ce999068eae125892e, type: 3}
   nonWalkableTilePrefab: {fileID: 7999720156837538174, guid: bc5ff049068bf469c89906a1f32a24dd, type: 3}
   mapSize: {x: 10, y: 10}
@@ -179,8 +182,6 @@ MonoBehaviour:
   - {x: 5, y: 7}
   - {x: 5, y: 8}
   - {x: 5, y: 9}
-  playerPrefab: {fileID: 1457855678874802470, guid: 8766eeb8920ed430089736d9dff08294, type: 3}
-  enemyPrefab: {fileID: 5332210210143545411, guid: 0e241bc6a80254c5e9a709a102faa233, type: 3}
 --- !u!1 &1012764342
 GameObject:
   m_ObjectHideFlags: 0

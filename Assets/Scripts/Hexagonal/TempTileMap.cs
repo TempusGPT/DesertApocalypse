@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class TempTileMap : MonoBehaviour {
     [SerializeField]
+    private PlayerController playerPrefab;
+
+    [SerializeField]
+    private EnemyController zakoPrefab;
+
+    [SerializeField]
+    private EnemyController bossPrefab;
+
+    [SerializeField]
     private Tile walkableTilePrefab;
 
     [SerializeField]
@@ -13,12 +22,6 @@ public class TempTileMap : MonoBehaviour {
 
     [SerializeField]
     private Vector2Int[] nonWalkableTiles;
-
-    [SerializeField]
-    private PlayerController playerPrefab;
-
-    [SerializeField]
-    private EnemyController enemyPrefab;
 
     private Tile[,] tileMap;
 
@@ -117,8 +120,12 @@ public class TempTileMap : MonoBehaviour {
         var player = Instantiate(playerPrefab);
         player.TileTransform.Tile = tileMap[0, 0];
 
-        // spawn enemy
-        var enemy = Instantiate(enemyPrefab);
-        enemy.TileTransform.Tile = tileMap[mapSize.x - 1, mapSize.y - 1];
+        // spawn zako
+        var zako = Instantiate(zakoPrefab);
+        zako.TileTransform.Tile = tileMap[mapSize.x - 1, 0];
+
+        // spawn boss
+        var boss = Instantiate(bossPrefab);
+        boss.TileTransform.Tile = tileMap[mapSize.x - 1, mapSize.y - 1];
     }
 }
