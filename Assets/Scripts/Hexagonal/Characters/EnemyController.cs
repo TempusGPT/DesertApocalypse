@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
-public class EnemyController : MonoBehaviour {
+public class EnemyController : MonoBehaviour, ITileObject {
     public TileTransform TileTransform { get; private set; }
 
     private void Awake() {
