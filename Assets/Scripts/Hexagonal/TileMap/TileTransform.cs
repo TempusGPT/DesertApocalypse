@@ -7,16 +7,18 @@ public class TileTransform : MonoBehaviour {
     public event Action OnTileSet;
 
     private const float MoveDuration = 0.5f;
+    private readonly Pathfinder pathfinder = new();
 
     [field: SerializeField]
     public Tile Tile { get; private set; }
+
 
     private void Awake() {
         transform.position = Tile.transform.position;
     }
 
     public async UniTask MoveTo(Tile targetTile) {
-        foreach (var pathTile in Pathfinder.Find(Tile, targetTile)) {
+        foreach (var pathTile in pathfinder.Find(Tile, targetTile)) {
             await SetTile(pathTile);
         }
     }

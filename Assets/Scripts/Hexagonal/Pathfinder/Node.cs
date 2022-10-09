@@ -7,6 +7,12 @@ public class Node : IComparable<Node>, IComparable {
     public int H { get; set; }
     public int F => G + H;
 
+    public Node(Tile tile, Tile startTile, Tile targetTile) {
+        Tile = tile;
+        G = Tile.Distance(tile, startTile);
+        H = Tile.Distance(tile, targetTile);
+    }
+
     public int CompareTo(Node other) {
         return F == other.F ? H.CompareTo(other.H) : F.CompareTo(other.F);
     }
