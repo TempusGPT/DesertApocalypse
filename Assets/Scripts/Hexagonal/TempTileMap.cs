@@ -14,6 +14,9 @@ public class TempTileMap : MonoBehaviour {
     [SerializeField]
     private Vector2Int[] nonWalkableTiles;
 
+    [SerializeField]
+    private PlayerController playerPrefab;
+
     private Tile[,] tileMap;
 
     private void Start() {
@@ -106,5 +109,9 @@ public class TempTileMap : MonoBehaviour {
                 }
             }
         }
+
+        // spawn player
+        var player = Instantiate(playerPrefab);
+        player.TileTransform.Tile = tileMap[0, 0];
     }
 }

@@ -8,13 +8,17 @@ public class TileTransform : MonoBehaviour {
 
     private const float MoveDuration = 0.5f;
     private readonly Pathfinder pathfinder = new();
+
+    private Tile tile;
     private Tile targetTile;
 
-    [field: SerializeField]
-    public Tile Tile { get; private set; }
-
-    private void Awake() {
-        transform.position = Tile.transform.position;
+    public Tile Tile {
+        get => tile;
+        set {
+            tile = value;
+            transform.position = tile.transform.position;
+            OnTileSet?.Invoke(tile);
+        }
     }
 
     public async UniTask MoveTo(Tile destinationTile) {
@@ -22,7 +26,7 @@ public class TileTransform : MonoBehaviour {
             targetTile = destinationTile;
             return;
         }
-        
+
         targetTile = destinationTile;
         while (targetTile != null) {
             await MoveToDestination();
