@@ -17,6 +17,9 @@ public class TempTileMap : MonoBehaviour {
     [SerializeField]
     private PlayerController playerPrefab;
 
+    [SerializeField]
+    private EnemyController enemyPrefab;
+
     private Tile[,] tileMap;
 
     private void Start() {
@@ -113,5 +116,9 @@ public class TempTileMap : MonoBehaviour {
         // spawn player
         var player = Instantiate(playerPrefab);
         player.TileTransform.Tile = tileMap[0, 0];
+
+        // spawn enemy
+        var enemy = Instantiate(enemyPrefab);
+        enemy.TileTransform.Tile = tileMap[mapSize.x - 1, mapSize.y - 1];
     }
 }

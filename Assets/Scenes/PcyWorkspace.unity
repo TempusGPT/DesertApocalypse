@@ -180,6 +180,7 @@ MonoBehaviour:
   - {x: 5, y: 8}
   - {x: 5, y: 9}
   playerPrefab: {fileID: 1457855678874802470, guid: 8766eeb8920ed430089736d9dff08294, type: 3}
+  enemyPrefab: {fileID: 5332210210143545411, guid: 0e241bc6a80254c5e9a709a102faa233, type: 3}
 --- !u!1 &1012764342
 GameObject:
   m_ObjectHideFlags: 0

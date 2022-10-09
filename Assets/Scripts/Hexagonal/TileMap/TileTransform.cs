@@ -48,10 +48,7 @@ public class TileTransform : MonoBehaviour {
         await transform
             .DOMove(value.transform.position, MoveDuration)
             .SetEase(Ease.Linear)
-            .OnComplete(() => {
-                Tile = value;
-                OnTileSet?.Invoke(value);
-            })
+            .OnComplete(() => Tile = value)
             .AsyncWaitForCompletion();
     }
 }
