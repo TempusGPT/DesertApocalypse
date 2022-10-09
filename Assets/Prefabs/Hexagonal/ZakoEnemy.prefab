@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4331416347906363138}
   - component: {fileID: 7063022556268316255}
   m_Layer: 0
-  m_Name: HumanWarrior
+  m_Name: ZakoEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
