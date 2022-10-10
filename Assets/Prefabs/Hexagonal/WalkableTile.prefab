@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3849691322371409305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee91da2d59414e7abe7e3e1d3badb364, type: 3}
+  m_Script: {fileID: 11500000, guid: c5a8c434101d642118d9762dc69b4a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <IsWalkable>k__BackingField: 1
