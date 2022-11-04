@@ -11,7 +11,6 @@ public class Pathfinder {
             return Nothing();
         }
         var (startNode, targetNode) = InitializeNode(startTile, targetTile);
-
         while (openSet.Count > 0) {
             var currentNode = GetCurrentNode();
             if (currentNode == targetNode) {
@@ -26,6 +25,7 @@ public class Pathfinder {
                     nearNode = new Node(nearTile, startTile, targetTile);
                     nodeMap.Add(nearTile, nearNode);
                 }
+                
                 UpdateNearNode(currentNode, nearNode);
             }
         }
