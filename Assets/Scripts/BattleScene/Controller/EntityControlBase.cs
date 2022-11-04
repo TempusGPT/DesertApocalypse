@@ -8,8 +8,4 @@ public abstract class EntityControlBase : MonoBehaviour {
     public abstract void Progress();
     public abstract bool IsDefeated();
     public abstract IEnumerator DoAttack(BattleMain battleControl, System.Action uiSetupCallback);
-
-    protected void ApplyAttack(BattleEntity selectedTarget, BattleEntity caster) {
-        selectedTarget.DecreaseHP(10);
-    }
 }

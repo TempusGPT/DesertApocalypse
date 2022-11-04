@@ -28,7 +28,9 @@ public class PlayerControl : EntityControlBase {
     public override IEnumerator DoAttack(BattleMain battleControl, System.Action uiSetupCallback) {
         Debug.Log("플레이어 공격");
 
-        ApplyAttack(battleControl.EnemyCtrl.GetRandomTarget(), _player);
+        var player = battleControl.PlayerCtrl.Player;
+
+        player.DoAttack(battleControl.EnemyCtrl);
         uiSetupCallback.Invoke();
 
         yield return YieldInstructionCache.WaitForSeconds(0.5f);

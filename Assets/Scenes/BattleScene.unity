@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentEnemies:
-  - {fileID: 1592521537}
+  - {fileID: 1592521540}
 --- !u!1 &426438679
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb231d0303e8b334895194b363f19031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 507087960}
+  _player: {fileID: 507087963}
 --- !u!1 &507087959
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 507087961}
-  - component: {fileID: 507087960}
+  - component: {fileID: 507087963}
   - component: {fileID: 507087962}
   m_Layer: 0
   m_Name: Player
@@ -617,18 +617,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &507087960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 507087959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78a522fe794d24c4c84d6d501f1b96d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &507087961
 Transform:
   m_ObjectHideFlags: 0
@@ -696,6 +684,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &507087963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507087959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a522fe794d24c4c84d6d501f1b96d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityID: 0
+  _entityStatus:
+    maxHP: 100
+    atk: 10
+    def: 0
+    name: Player
+  _currentWeapon: {fileID: 11400000, guid: 64354654b7d533340b0902999863dc1c, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +949,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592521538}
-  - component: {fileID: 1592521537}
+  - component: {fileID: 1592521540}
   - component: {fileID: 1592521539}
   m_Layer: 0
   m_Name: Enemy
@@ -951,18 +958,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1592521537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592521536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78a522fe794d24c4c84d6d501f1b96d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1592521538
 Transform:
   m_ObjectHideFlags: 0
@@ -1030,3 +1025,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1592521540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592521536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a522fe794d24c4c84d6d501f1b96d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityID: 0
+  _entityStatus:
+    maxHP: 100
+    atk: 10
+    def: 0
+    name: Enemy1
+  _currentWeapon: {fileID: 11400000, guid: 64354654b7d533340b0902999863dc1c, type: 2}
