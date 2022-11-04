@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG
+    uniqueID: 1634809385
+    locked: 0
+  - name: Entity
+    uniqueID: 2781228487
+    locked: 0
   - name: Camera
     uniqueID: 329203185
     locked: 0
