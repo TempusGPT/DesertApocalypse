@@ -11,22 +11,41 @@ public class ResourceManager : Singleton<ResourceManager> {
     private Dictionary<WeaponType, WeaponBase> _weaponCacheDic;
     private SOLevelInfo[] _levels;
 
+    #region Initialize
     public void Initialize() {
+        if (_enemyCacheDic == null) {
+            InitializeEnemy();
+        }
+        if (_levels == null) {
+            InitializeLevel();
+        }
+        if (_weaponCacheDic == null) {
+            InitializeWeapon();
+        }
+    }
+
+    private void InitializeEnemy() {
         var enemyCache = Resources.LoadAll<BattleEntity>(EnemyPath);
         _enemyCacheDic = new Dictionary<int, BattleEntity>();
         
         foreach (var enemy in enemyCache) {
             _enemyCacheDic.Add(enemy.EntityID, enemy);
         }
+    }
 
+    private void InitializeLevel() {
         _levels = Resources.LoadAll<SOLevelInfo>(LevelPath);
+    }
 
+    private void InitializeWeapon() {
         var weaponCache = Resources.LoadAll<WeaponBase>(WeaponPath);
         _weaponCacheDic = new Dictionary<WeaponType, WeaponBase>();
         foreach (var weapon in weaponCache) {
             _weaponCacheDic.Add(weapon.WeaponID, weapon);
         }
     }
+
+    #endregion
 
     public BattleEntity GetEnemyPrefab(int id) {
         if (_enemyCacheDic == null) {
