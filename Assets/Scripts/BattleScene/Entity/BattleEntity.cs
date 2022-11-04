@@ -18,6 +18,9 @@ public class EntityStatus {
 
 public class BattleEntity : MonoBehaviour {
     [SerializeField] private int _entityID = 0;
+    public int EntityID {
+        get { return _entityID; }
+    }
     [SerializeField] private EntityStatus _entityStatus;
     public int AttackPower {
         get { return _entityStatus.atk; }
@@ -25,7 +28,7 @@ public class BattleEntity : MonoBehaviour {
 
     private int _maxHP;
     private int _curHP;
-    [SerializeField] private WeaponBase _currentWeapon = null;
+    private WeaponBase _currentWeapon = null;
     public WeaponBase CurrentWeapon {
         get { return _currentWeapon; }
     }
@@ -36,6 +39,7 @@ public class BattleEntity : MonoBehaviour {
 
     public virtual void Initialize() {
         _curHP = _entityStatus.maxHP;
+        _currentWeapon = ResourceManager.GetInstance().GetWeapon(WeaponType.Default);
     }
 
     public float GetHPPercent() {

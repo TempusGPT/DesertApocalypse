@@ -2,14 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class EnemyControl : EntityControlBase {
-    [SerializeField]
-    private List<BattleEntity> _currentEnemies = null;
+    [SerializeField] private Transform[] _enemySpawnPositions = null;
+    private List<BattleEntity> _currentEnemies;
 
     private float[] _fillAmounts;
 
     public override void Initialize() {
-        _fillAmounts = new float[1];
-        _currentEnemies[0].Initialize();
+        var resourceManager = ResourceManager.GetInstance();
+        SOLevelInfo levelInfo = resourceManager.GetLevel(1);
+        RoomInfo room = levelInfo.roomInformation[Random.Range(0, levelInfo.roomInformation.Length)];
+        _currentEnemies = new List<BattleEntity>();
+
+        for (int i = 0; i < room.enemyID.Length; ++i) {
+            int eid = room.enemyID[i];
+            var prefab = resourceManager.GetEnemyPrefab(eid);
+            var enemy = Instantiate(prefab, _enemySpawnPositions[i].position, Quaternion.identity);
+
+            enemy.Initialize();
+            _currentEnemies.Add(enemy);
+        }
+
+        _fillAmounts = new float[_currentEnemies.Count];
     }
 
     public override void Progress() {
@@ -40,7 +53,8 @@ public class EnemyControl : EntityControlBase {
     }
 
     public BattleEntity GetRandomTarget() {
-        return _currentEnemies[0];
+        int idx = Random.Range(0, _currentEnemies.Count);
+        return _currentEnemies[idx];
     }
 
     public List<BattleEntity> GetRandomTargets(int targetCounts)

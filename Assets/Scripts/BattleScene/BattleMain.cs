@@ -23,7 +23,11 @@ public class BattleMain : MonoBehaviour {
 
     private ObserverSubject<BattleUIArgs> _onSkillUsedEvent;
 
-    void Start() {
+    private void Awake() {
+        ResourceManager.GetInstance().Initialize();
+    }
+
+    private void Start() {
         _currentTurn = TurnInfo.PLAYER;
         _playerControl.Initialize();
         _enemyControl.Initialize();

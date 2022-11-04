@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd52bf5c392a9349958992991f93c59, type: 3}
   m_Name: SODefaultWeapon
   m_EditorClassIdentifier: 
+  WeaponID: 101
+  extraStatus:
+    maxHP: 0
+    atk: 0
+    def: 0

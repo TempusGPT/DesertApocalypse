@@ -28,12 +28,9 @@ public class BattleUI : MonoBehaviour {
 
     private void OnEnemyHPChanged(float[] args) {
         for (int i = 0; i < _enemyHPUIImages.Length; ++i) {
-            if (args == null || args.Length <= i) {
-                SetImageFillAmount(_enemyHPUIImages[i], 1f);
-            }
-            else {
-                SetImageFillAmount(_enemyHPUIImages[i], args[i]);
-            }
+            if (args == null || args.Length <= i) continue;
+            _enemyHPUIImages[i].transform.parent.gameObject.SetActive(true);
+            SetImageFillAmount(_enemyHPUIImages[i], args[i]);
         }
     }
 

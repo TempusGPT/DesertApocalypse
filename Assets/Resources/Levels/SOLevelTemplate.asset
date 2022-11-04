@@ -9,6 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e09523cd4ed09a845aa020a4c2262820, type: 3}
-  m_Name: SOKatanaWeapon
+  m_Script: {fileID: 11500000, guid: bf378ba4d57daff48b27f441ee6546c3, type: 3}
+  m_Name: SOLevelTemplate
   m_EditorClassIdentifier: 
+  level: 1
+  roomInformation:
+  - roomID: 1000
+    enemyID: 0b0000000a0000000a000000
+  - roomID: 1001
+    enemyID: 0b0000000b0000000a000000
+  - roomID: 1002
+    enemyID: 0c0000000c000000

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 937a3b91b9df7064f9c84ed7e3f15714, type: 3}
-  m_Name: SORifleWeapon
+  m_Script: {fileID: 11500000, guid: 80eeb2a51abcb794f8805e9be724a164, type: 3}
+  m_Name: SOKnifeWeapon
   m_EditorClassIdentifier: 
+  WeaponID: 103
   extraStatus:
     maxHP: 0
     atk: 0
