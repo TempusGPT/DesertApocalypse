@@ -7,12 +7,16 @@ public class EntityStatus {
     public int maxHP;
     public int atk;
     public int def;
+    public int dodge;
+    public int aim;
 
-    public EntityStatus(int hp, int atk, int def)
+    public EntityStatus(int hp, int atk, int def, int dodge, int aim)
     {
         this.maxHP = hp;
         this.atk = atk;
         this.def = def;
+        this.dodge = dodge;
+        this.aim = aim;
     }
 }
 

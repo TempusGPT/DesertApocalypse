@@ -9,6 +9,7 @@ public enum WeaponType {
     Knife,
     Rifle,
     Shotgun,
+    Blunt,
     WeaponTypeEnds
 }
 
