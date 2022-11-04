@@ -6,8 +6,10 @@ using UnityEngine;
 public class KatanaWeapon : WeaponBase {
     public override void Attack(BattleEntity caster, EnemyControl receiverController) {
         var receivers = receiverController.GetRandomTargets(2);
+        int atk = caster.AttackPower + extraStatus.atk;
+        
         foreach (BattleEntity receiver in receivers) {
-            receiver.ReceiveAttack(caster.AttackPower);
+            receiver.ReceiveAttack(atk);
         }
     }
 }

@@ -7,14 +7,12 @@ public class EntityStatus {
     public int maxHP;
     public int atk;
     public int def;
-    public string name = null;
 
-    public EntityStatus(int hp, int atk, int def, string name)
+    public EntityStatus(int hp, int atk, int def)
     {
         this.maxHP = hp;
         this.atk = atk;
         this.def = def;
-        this.name = name;
     }
 }
 

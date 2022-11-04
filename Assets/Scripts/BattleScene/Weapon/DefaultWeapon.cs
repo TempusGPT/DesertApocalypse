@@ -6,6 +6,8 @@ using UnityEngine;
 public class DefaultWeapon : WeaponBase {
     public override void Attack(BattleEntity caster, EnemyControl receiverController) {
         var receiver = receiverController.GetRandomTarget();
-        receiver.ReceiveAttack(caster.AttackPower);
+
+        int atk = caster.AttackPower + extraStatus.atk;
+        receiver.ReceiveAttack(atk);
     }
 }
