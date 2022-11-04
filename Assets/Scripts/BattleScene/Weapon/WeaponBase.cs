@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum WeaponType {
-    WeaponStarts = 100,
+    WeaponTypeStarts = 100,
     Default,
     Katana,
     Knife,
     Rifle,
-    Count
+    Shotgun,
+    WeaponTypeEnds
 }
 
 public abstract class WeaponBase : ScriptableObject {
