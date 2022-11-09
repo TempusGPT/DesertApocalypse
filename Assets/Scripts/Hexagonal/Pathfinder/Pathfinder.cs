@@ -2,80 +2,66 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Pathfinder {
-    private readonly Dictionary<Tile, Node> nodeMap = new();
-    private readonly SortedSet<Node> openSet = new();
-    private readonly HashSet<Node> closedSet = new();
+    public IEnumerable<Tile> Find(Tile start, Tile goal) {
+        var openSet = new HashSet<Tile> {
+            start
+        };
 
-    public IEnumerable<Tile> Find(Tile startTile, Tile targetTile) {
-        if (startTile == targetTile) {
-            return Nothing();
-        }
-        var (startNode, targetNode) = InitializeNode(startTile, targetTile);
+        var cameFrom = new Dictionary<Tile, Tile>();
+
+        var gScore = new Dictionary<Tile, float> {
+            [start] = 0
+        };
+
+        var fScore = new Dictionary<Tile, float> {
+            [start] = Tile.Distance(start, goal)
+        };
+
         while (openSet.Count > 0) {
-            var currentNode = GetCurrentNode();
-            if (currentNode == targetNode) {
-                return RetracePath(currentNode, startNode).Reverse();
+            var current = openSet.Aggregate(
+                (a, b) => GetScore(fScore, a) < GetScore(fScore, b) ? a : b
+            );
+            if (current == goal) {
+                return ReconstructPath(cameFrom, current);
             }
 
-            foreach (
-                var nearTile
-                in currentNode.Tile.NearTiles.Values.Where(tile => tile.IsWalkable)
-            ) {
-                if (!nodeMap.TryGetValue(nearTile, out var nearNode)) {
-                    nearNode = new Node(nearTile, startTile, targetTile);
-                    nodeMap.Add(nearTile, nearNode);
+            openSet.Remove(current);
+            foreach (var neighbor in current.NearTiles.Values) {
+                var tentativeG = GetScore(gScore, current)
+                    + Tile.Distance(current, neighbor);
+                if (tentativeG < GetScore(gScore, neighbor)) {
+                    cameFrom[neighbor] = current;
+                    gScore[neighbor] = tentativeG;
+                    fScore[neighbor] = tentativeG + Tile.Distance(neighbor, goal);
+
+                    if (!openSet.Contains(neighbor)) {
+                        openSet.Add(neighbor);
+                    }
                 }
-                
-                UpdateNearNode(currentNode, nearNode);
             }
         }
-
+        
         return Nothing();
     }
 
-    private (Node startNode, Node targetNode) InitializeNode(Tile startTile, Tile targetTile) {
-        nodeMap.Clear();
-        openSet.Clear();
-        closedSet.Clear();
-
-        var startNode = new Node(startTile, startTile, targetTile);
-        var targetNode = new Node(targetTile, startTile, targetTile);
-
-        nodeMap.Add(startTile, startNode);
-        nodeMap.Add(targetTile, targetNode);
-        openSet.Add(startNode);
-        return (startNode, targetNode);
+    private static float GetScore(IReadOnlyDictionary<Tile, float> score, Tile tile) {
+        return score.TryGetValue(tile, out var result)
+            ? result
+            : float.PositiveInfinity;
     }
 
-    private Node GetCurrentNode() {
-        var currentNode = openSet.Min;
-        openSet.Remove(currentNode);
-        closedSet.Add(currentNode);
-        return currentNode;
-    }
-
-    private void UpdateNearNode(Node currentNode, Node nearNode) {
-        if (closedSet.Contains(nearNode)) {
-            return;
+    private static IEnumerable<Tile> ReconstructPath(
+        Dictionary<Tile, Tile> cameFrom,
+        Tile current
+    ) {
+        var totalPath = new List<Tile> {
+            current
+        };
+        while (cameFrom.Keys.Contains(current)) {
+            current = cameFrom[current];
+            totalPath.Insert(0, current);
         }
-
-        var tentativeG = currentNode.G + Tile.Distance(currentNode.Tile, nearNode.Tile);
-        if (tentativeG >= nearNode.G && openSet.Contains(nearNode)) {
-            return;
-        }
-
-        nearNode.G = tentativeG;
-        nearNode.Parent = currentNode;
-        if (!openSet.Contains(nearNode)) {
-            openSet.Add(nearNode);
-        }
-    }
-
-    private static IEnumerable<Tile> RetracePath(Node currentNode, Node startNode) {
-        while (currentNode != startNode) {
-            yield return currentNode.Tile;
-            currentNode = currentNode.Parent;
-        }
+        return totalPath.Skip(1);
     }
 
     private static IEnumerable<Tile> Nothing() {

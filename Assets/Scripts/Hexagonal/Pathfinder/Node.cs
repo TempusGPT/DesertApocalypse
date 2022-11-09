@@ -14,8 +14,8 @@ public class Node : IComparable<Node>, IComparable {
     }
 
     public int CompareTo(Node other) {
-        var comparedF = F.CompareTo(other.F);
-        return comparedF == 0 ? H.CompareTo(other.H) : comparedF;
+        return F.CompareTo(other.F);
+        // return comparedF == 0 ? H.CompareTo(other.H) : comparedF;
     }
 
     int IComparable.CompareTo(object obj) {

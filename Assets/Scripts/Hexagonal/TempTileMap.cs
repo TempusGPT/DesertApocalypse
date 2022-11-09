@@ -113,6 +113,14 @@ public class TempTileMap : MonoBehaviour {
                         tile.NearTiles.Add(TileDirection.UpperRight, tileMap[x + 1, y]);
                     }
                 }
+
+                var toRemove = tile.NearTiles
+                    .Where(nearTile => !nearTile.Value.IsWalkable)
+                    .Select(nearTile => nearTile.Key)
+                    .ToList();
+                foreach (var key in toRemove) {
+                    tile.NearTiles.Remove(key);
+                }
             }
         }
 
