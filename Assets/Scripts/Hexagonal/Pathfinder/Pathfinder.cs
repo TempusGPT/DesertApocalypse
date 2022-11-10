@@ -23,9 +23,9 @@ public class Pathfinder {
             if (current == goal) {
                 return ReconstructPath(cameFrom, current).Reverse();
             }
-
             openSet.Remove(current);
-            foreach (var near in current.NearTiles.Values) {
+
+            foreach (var near in current.NearWalkableTiles) {
                 var tentativeG = GetGScore(current) + Tile.Distance(current, near);
                 if (tentativeG < GetGScore(near)) {
                     cameFrom[near] = current;

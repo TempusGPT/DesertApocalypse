@@ -56,70 +56,59 @@ public class TempTileMap : MonoBehaviour {
         for (var y = 0; y < mapSize.y; y++) {
             for (var x = 0; x < mapSize.x; x++) {
                 var tile = tileMap[x, y];
-                if (!tile.IsWalkable) {
-                    continue;
-                }
 
                 // add lower near tile
                 if (y > 0) {
-                    tile.NearTiles.Add(TileDirection.Lower, tileMap[x, y - 1]);
+                    tile.NearTilesMap.Add(TileDirection.Lower, tileMap[x, y - 1]);
                 }
 
                 // add lower left near tile
                 if (x % 2 == 0) {
                     if (x > 0) {
-                        tile.NearTiles.Add(TileDirection.LowerLeft, tileMap[x - 1, y]);
+                        tile.NearTilesMap.Add(TileDirection.LowerLeft, tileMap[x - 1, y]);
                     }
                 } else {
                     if (x > 0 && y > 0) {
-                        tile.NearTiles.Add(TileDirection.LowerLeft, tileMap[x - 1, y - 1]);
+                        tile.NearTilesMap.Add(TileDirection.LowerLeft, tileMap[x - 1, y - 1]);
                     }
                 }
 
                 // add lower right near tile
                 if (x % 2 == 0) {
                     if (x < mapSize.x - 1) {
-                        tile.NearTiles.Add(TileDirection.LowerRight, tileMap[x + 1, y]);
+                        tile.NearTilesMap.Add(TileDirection.LowerRight, tileMap[x + 1, y]);
                     }
                 } else {
                     if (x < mapSize.x - 1 && y > 0) {
-                        tile.NearTiles.Add(TileDirection.LowerRight, tileMap[x + 1, y - 1]);
+                        tile.NearTilesMap.Add(TileDirection.LowerRight, tileMap[x + 1, y - 1]);
                     }
                 }
 
                 // add upper near tile
                 if (y < mapSize.y - 1) {
-                    tile.NearTiles.Add(TileDirection.Upper, tileMap[x, y + 1]);
+                    tile.NearTilesMap.Add(TileDirection.Upper, tileMap[x, y + 1]);
                 }
 
                 // add upper left near tile
                 if (x % 2 == 0) {
                     if (x > 0 && y < mapSize.y - 1) {
-                        tile.NearTiles.Add(TileDirection.UpperLeft, tileMap[x - 1, y + 1]);
+                        tile.NearTilesMap.Add(TileDirection.UpperLeft, tileMap[x - 1, y + 1]);
                     }
                 } else {
                     if (x > 0) {
-                        tile.NearTiles.Add(TileDirection.UpperLeft, tileMap[x - 1, y]);
+                        tile.NearTilesMap.Add(TileDirection.UpperLeft, tileMap[x - 1, y]);
                     }
                 }
 
                 // add upper right near tile
                 if (x % 2 == 0) {
                     if (x < mapSize.x - 1 && y < mapSize.y - 1) {
-                        tile.NearTiles.Add(TileDirection.UpperRight, tileMap[x + 1, y + 1]);
+                        tile.NearTilesMap.Add(TileDirection.UpperRight, tileMap[x + 1, y + 1]);
                     }
                 } else {
                     if (x < mapSize.x - 1) {
-                        tile.NearTiles.Add(TileDirection.UpperRight, tileMap[x + 1, y]);
+                        tile.NearTilesMap.Add(TileDirection.UpperRight, tileMap[x + 1, y]);
                     }
-                }
-
-                var toRemove = tile.NearTiles
-                    .Where(nearTile => !nearTile.Value.IsWalkable)
-                    .Select(nearTile => nearTile.Key)
-                    .ToList();
-                foreach (var key in toRemove) {
-                    tile.NearTiles.Remove(key);
                 }
             }
         }
