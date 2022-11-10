@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour {
         if (!tile.IsWalkable) {
             return;
         }
-        TileTransform.MoveTo(tile);
+        TileTransform.MoveTo(tile).Forget();
     }
 
     private static void NotifyMove(Tile tile) {
