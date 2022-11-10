@@ -4,17 +4,20 @@ using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
 public class PlayerController : MonoBehaviour {
+    public static event Action<Tile> OnInitialize;
     public static event Action<Tile> OnMove;
 
-    public TileTransform TileTransform { get; private set; }
+    private TileTransform TileTransform { get; set; }
 
     private void Awake() {
         TileTransform = GetComponent<TileTransform>();
-    }
-
-    private void Start() {
         Tile.OnClick += MoveToClickedTile;
         TileTransform.OnTileSet += NotifyMove;
+    }
+
+    public void Initialize(Tile tile) {
+        TileTransform.Tile = tile;
+        OnInitialize?.Invoke(tile);
     }
 
     private void MoveToClickedTile(Tile tile) {

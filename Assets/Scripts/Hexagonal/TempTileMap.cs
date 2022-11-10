@@ -115,14 +115,14 @@ public class TempTileMap : MonoBehaviour {
 
         // spawn player
         var player = Instantiate(playerPrefab);
-        player.TileTransform.Tile = tileMap[0, 0];
+        player.Initialize(tileMap[0, 0]);
 
         // spawn zako
         var zako = Instantiate(zakoPrefab);
-        zako.TileTransform.Tile = tileMap[mapSize.x - 1, 0];
+        zako.Initialize(tileMap[mapSize.x - 1, 0]);
 
         // spawn boss
         var boss = Instantiate(bossPrefab);
-        boss.TileTransform.Tile = tileMap[mapSize.x - 1, mapSize.y - 1];
+        boss.Initialize(tileMap[mapSize.x - 1, mapSize.y - 1]);
     }
 }

@@ -8,14 +8,15 @@ public class EnemyController : MonoBehaviour {
     [SerializeField]
     private MoveRule moveRule;
 
-    public TileTransform TileTransform { get; private set; }
+    private TileTransform TileTransform { get; set; }
 
     private void Awake() {
         TileTransform = GetComponent<TileTransform>();
+        PlayerController.OnMove += HandlePlayerMove;
     }
 
-    private void Start() {
-        PlayerController.OnMove += HandlePlayerMove;
+    public void Initialize(Tile tile) {
+        TileTransform.Tile = tile;
     }
 
     private void HandlePlayerMove(Tile playerTile) {
