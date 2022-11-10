@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3849691322371409306}
   - component: {fileID: 3849691322371409307}
   - component: {fileID: 8843939736229616343}
-  - component: {fileID: 47434770605156873}
+  - component: {fileID: -3845489495038760516}
   m_Layer: 0
   m_Name: WalkableTile
   m_TagString: Untagged
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &47434770605156873
+--- !u!58 &-3845489495038760516
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

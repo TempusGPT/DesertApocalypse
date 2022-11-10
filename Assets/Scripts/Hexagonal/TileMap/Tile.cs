@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour {
+public class Tile : MonoBehaviour, IPointerClickHandler {
     public static event Action<Tile> OnClick;
 
     [field: SerializeField]
@@ -10,7 +11,7 @@ public class Tile : MonoBehaviour {
 
     public Dictionary<TileDirection, Tile> NearTiles { get; } = new();
 
-    private void OnMouseUp() {
+    public void OnPointerClick(PointerEventData eventData) {
         OnClick?.Invoke(this);
     }
 
