@@ -46,6 +46,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
         var nearTile = tileMap[result.x, result.y];
         nearTilesMap.Add(direction, nearTile);
     }
+
     private static Vector2Int DirectionToOffset(TileDirection direction, bool xEven) {
         return direction switch {
             TileDirection.Lower => new Vector2Int(0, -1),
