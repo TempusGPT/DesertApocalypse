@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public partial class Tile : MonoBehaviour, IPointerClickHandler {
+public class Tile : MonoBehaviour, IPointerClickHandler {
     public static event Action<Tile> OnClick;
 
     [SerializeField]
@@ -24,7 +24,42 @@ public partial class Tile : MonoBehaviour, IPointerClickHandler {
     }
 
     public void Initialize(Tile[,] tileMap, Vector2Int coord) {
-        Initializer.Initialize(this, tileMap, coord);
+        var xEven = coord.x % 2 == 0;
+        foreach (TileDirection direction in Enum.GetValues(typeof(TileDirection))) {
+            var offset = DirectionToOffset(direction, xEven);
+            AddNearTile(tileMap, coord, offset, direction);
+        }
+    }
+
+    private void AddNearTile(
+        Tile[,] tileMap,
+        Vector2Int coord,
+        Vector2Int offset,
+        TileDirection direction
+    ) {
+        var result = coord + offset;
+        if (result.x < 0 || result.x >= tileMap.GetLength(0) ||
+            result.y < 0 || result.y >= tileMap.GetLength(1)) {
+            return;
+        }
+
+        var nearTile = tileMap[result.x, result.y];
+        nearTilesMap.Add(direction, nearTile);
+    }
+    private static Vector2Int DirectionToOffset(TileDirection direction, bool xEven) {
+        return direction switch {
+            TileDirection.Lower => new Vector2Int(0, -1),
+            TileDirection.LowerLeft => new Vector2Int(-1, xEven ? 0 : -1),
+            TileDirection.LowerRight => new Vector2Int(1, xEven ? 0 : -1),
+            TileDirection.Upper => new Vector2Int(0, 1),
+            TileDirection.UpperLeft => new Vector2Int(-1, xEven ? 1 : 0),
+            TileDirection.UpperRight => new Vector2Int(1, xEven ? 1 : 0),
+            _ => throw new ArgumentOutOfRangeException(
+                nameof(direction),
+                direction,
+                null
+            )
+        };
     }
 
     public void OnPointerClick(PointerEventData eventData) {

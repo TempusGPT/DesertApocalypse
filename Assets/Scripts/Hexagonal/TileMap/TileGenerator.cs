@@ -63,10 +63,11 @@ public class TileGenerator : MonoBehaviour {
     }
 
     private void InitializeTiles() {
-        for (var y = 0; y < mapSize.y; y++) {
-            for (var x = 0; x < mapSize.x; x++) {
-                var tile = tileMap[x, y];
-                tile.Initialize(tileMap, new Vector2Int(x, y));
+        var coord = new Vector2Int();
+        for (coord.y = 0; coord.y < mapSize.y; coord.y++) {
+            for (coord.x = 0; coord.x < mapSize.x; coord.x++) {
+                var tile = tileMap[coord.x, coord.y];
+                tile.Initialize(tileMap, coord);
             }
         }
     }
