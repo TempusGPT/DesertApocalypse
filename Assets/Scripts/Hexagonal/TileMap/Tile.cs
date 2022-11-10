@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Tile : MonoBehaviour, IPointerClickHandler {
+public partial class Tile : MonoBehaviour, IPointerClickHandler {
     public static event Action<Tile> OnClick;
 
     [SerializeField]
@@ -13,13 +13,18 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
     [field: SerializeField]
     public bool IsWalkable { get; private set; }
 
-    public Dictionary<TileDirection, Tile> NearTilesMap { get; } = new();
+    private readonly Dictionary<TileDirection, Tile> nearTilesMap = new();
+
     public IEnumerable<Tile> NearWalkableTiles =>
-        NearTilesMap.Values.Where(tile => tile.IsWalkable);
+        nearTilesMap.Values.Where(tile => tile.IsWalkable);
 
     private void Awake() {
         PlayerController.OnInitialize += HandleEyesightDisplay;
         PlayerController.OnMove += HandleEyesightDisplay;
+    }
+
+    public void Initialize(Tile[,] tileMap, Vector2Int coord) {
+        Initializer.Initialize(this, tileMap, coord);
     }
 
     public void OnPointerClick(PointerEventData eventData) {
@@ -28,7 +33,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
 
     private void HandleEyesightDisplay(Tile playerTile) {
         var playerNear = this == playerTile ||
-            NearTilesMap.Values.Any(tile => tile == playerTile);
+            nearTilesMap.Values.Any(tile => tile == playerTile);
         eyesightDisplay.SetActive(!playerNear);
     }
 

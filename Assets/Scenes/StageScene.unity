@@ -1564,7 +1564,7 @@ GameObject:
   - component: {fileID: 805191357}
   - component: {fileID: 805191358}
   m_Layer: 0
-  m_Name: TempTileMap
+  m_Name: TileGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
