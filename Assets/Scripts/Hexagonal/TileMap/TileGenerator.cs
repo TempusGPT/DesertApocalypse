@@ -1,29 +1,26 @@
+using System;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TileGenerator : MonoBehaviour {
     [SerializeField]
+    private Vector2Int mapSize;
+    private Tile[,] tileMap;
+
     private PlayerController playerPrefab;
-
-    [SerializeField]
     private EnemyController zakoPrefab;
-
-    [SerializeField]
     private EnemyController bossPrefab;
-
-    [SerializeField]
     private Tile walkableTilePrefab;
-
-    [SerializeField]
     private Tile nonWalkableTilePrefab;
 
-    [SerializeField]
-    private Vector2Int mapSize;
-
-    [SerializeField]
-    private Vector2Int[] nonWalkableTiles;
-
-    private Tile[,] tileMap;
+    private void Awake() {
+        playerPrefab = Resources.Load<PlayerController>("Hexagonal/PlayerCharacter");
+        zakoPrefab = Resources.Load<EnemyController>("Hexagonal/ZakoEnemy");
+        bossPrefab = Resources.Load<EnemyController>("Hexagonal/BossEnemy");
+        walkableTilePrefab = Resources.Load<Tile>("Hexagonal/WalkableTile");
+        nonWalkableTilePrefab = Resources.Load<Tile>("Hexagonal/NonWalkableTile");
+    }
 
     private void Start() {
         tileMap = new Tile[mapSize.x, mapSize.y];
@@ -45,10 +42,7 @@ public class TileGenerator : MonoBehaviour {
         for (coord.y = 0; coord.y < mapSize.y; coord.y++) {
             for (coord.x = 0; coord.x < mapSize.x; coord.x++) {
                 var position = CalculatePosition(coord);
-                var isWalkable = nonWalkableTiles.All(
-                    tile => tile.x != coord.x || tile.y != coord.y
-                );
-
+                var isWalkable = Random.Range(0, 2) == 0;
                 var tile = Instantiate(
                     isWalkable ? walkableTilePrefab : nonWalkableTilePrefab,
                     position,
