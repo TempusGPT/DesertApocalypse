@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -6,6 +7,10 @@ using Random = UnityEngine.Random;
 public class TileGenerator : MonoBehaviour {
     [SerializeField]
     private Vector2Int mapSize;
+
+    [SerializeField]
+    private int phaseCount;
+
     private Tile[,] tileMap;
 
     private PlayerController playerPrefab;
@@ -15,7 +20,7 @@ public class TileGenerator : MonoBehaviour {
     private Tile nonWalkableTilePrefab;
 
     private void Awake() {
-        tileMap = new Tile[mapSize.x * 2 + 3, mapSize.y];
+        tileMap = new Tile[mapSize.x * phaseCount + phaseCount + 1, mapSize.y];
         playerPrefab = Resources.Load<PlayerController>("Hexagonal/PlayerCharacter");
         zakoPrefab = Resources.Load<EnemyController>("Hexagonal/ZakoEnemy");
         bossPrefab = Resources.Load<EnemyController>("Hexagonal/BossEnemy");
@@ -24,21 +29,29 @@ public class TileGenerator : MonoBehaviour {
     }
 
     private void Start() {
-        var offset = new Vector2Int();
-        var playerCoord = InstantiatePass(offset);
-        offset.x += 1;
-        InstantiateHalf(offset);
-        offset.x += mapSize.x;
-        var middleBossCoord = InstantiatePass(offset);
-        offset.x += 1;
-        InstantiateHalf(offset);
-        offset.x += mapSize.x;
-        var finalBossCoord = InstantiatePass(offset);
-
+        var playerCoord = InstantiatePass(Vector2Int.zero);
+        var bossCoords = InstantiateMap();
         InitializeMap();
+
         Instantiate(playerPrefab).Initialize(tileMap[playerCoord.x, playerCoord.y]);
-        Instantiate(bossPrefab).Initialize(tileMap[middleBossCoord.x, middleBossCoord.y]);
-        Instantiate(bossPrefab).Initialize(tileMap[finalBossCoord.x, finalBossCoord.y]);
+        foreach (var bossCoord in bossCoords) {
+            Instantiate(bossPrefab).Initialize(tileMap[bossCoord.x, bossCoord.y]);
+        }
+    }
+
+    private IEnumerable<Vector2Int> InstantiateMap() {
+        var bossCoords = new List<Vector2Int>();
+        var offset = Vector2Int.zero;
+
+        for (var i = 0; i < phaseCount; i++) {
+            Debug.Log(offset);
+            offset.x += 1;
+            InstantiateHalf(offset);
+            offset.x += mapSize.x;
+            bossCoords.Add(InstantiatePass(offset));
+        }
+
+        return bossCoords;
     }
 
     private void InstantiateHalf(Vector2Int offset) {

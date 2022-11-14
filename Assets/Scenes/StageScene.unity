@@ -1597,7 +1597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c918b4e171864ae6bc159f64fa17902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: {x: 10, y: 10}
+  mapSize: {x: 5, y: 10}
+  phaseCount: 2
 --- !u!1 &873455194
 GameObject:
   m_ObjectHideFlags: 0
