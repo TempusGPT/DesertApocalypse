@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
-public class EnemyController : MonoBehaviour, IInitializableController {
+public class EnemyController : MonoBehaviour {
     public static event Action OnMeetPlayer;
 
     [SerializeField]
