@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(TileTransform))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IInitializableController {
     public static event Action<Tile> OnInitialize;
     public static event Action<Tile> OnMove;
 

@@ -15,6 +15,7 @@ public class TileGenerator : MonoBehaviour {
     private Tile nonWalkableTilePrefab;
 
     private void Awake() {
+        tileMap = new Tile[mapSize.x * 2 + 3, mapSize.y];
         playerPrefab = Resources.Load<PlayerController>("Hexagonal/PlayerCharacter");
         zakoPrefab = Resources.Load<EnemyController>("Hexagonal/ZakoEnemy");
         bossPrefab = Resources.Load<EnemyController>("Hexagonal/BossEnemy");
@@ -23,25 +24,27 @@ public class TileGenerator : MonoBehaviour {
     }
 
     private void Start() {
-        tileMap = new Tile[mapSize.x, mapSize.y];
-        InstantiateTiles();
-        InitializeTiles();
+        var offset = new Vector2Int();
+        var playerCoord = InstantiatePass(offset);
+        offset.x += 1;
+        InstantiateHalf(offset);
+        offset.x += mapSize.x;
+        var middleBossCoord = InstantiatePass(offset);
+        offset.x += 1;
+        InstantiateHalf(offset);
+        offset.x += mapSize.x;
+        var finalBossCoord = InstantiatePass(offset);
 
-        var player = Instantiate(playerPrefab);
-        player.Initialize(tileMap[0, 0]);
-
-        var zako = Instantiate(zakoPrefab);
-        zako.Initialize(tileMap[mapSize.x - 1, 0]);
-
-        var boss = Instantiate(bossPrefab);
-        boss.Initialize(tileMap[mapSize.x - 1, mapSize.y - 1]);
+        InitializeMap();
+        Instantiate(playerPrefab).Initialize(tileMap[playerCoord.x, playerCoord.y]);
+        Instantiate(bossPrefab).Initialize(tileMap[middleBossCoord.x, middleBossCoord.y]);
+        Instantiate(bossPrefab).Initialize(tileMap[finalBossCoord.x, finalBossCoord.y]);
     }
 
-    private void InstantiateTiles() {
-        var coord = new Vector2Int();
-        for (coord.y = 0; coord.y < mapSize.y; coord.y++) {
+    private void InstantiateHalf(Vector2Int offset) {
+        for (var coord = Vector2Int.zero; coord.y < mapSize.y; coord.y++) {
             for (coord.x = 0; coord.x < mapSize.x; coord.x++) {
-                var position = CalculatePosition(coord);
+                var position = CalculatePosition(coord + offset);
                 var isWalkable = Random.Range(0, 2) == 0;
                 var tile = Instantiate(
                     isWalkable ? walkableTilePrefab : nonWalkableTilePrefab,
@@ -50,16 +53,33 @@ public class TileGenerator : MonoBehaviour {
                     transform
                 );
 
-                tile.name = $"Tile {coord}";
-                tileMap[coord.x, coord.y] = tile;
+                tile.name = $"Tile {coord + offset}";
+                tileMap[coord.x + offset.x, coord.y + offset.y] = tile;
             }
         }
     }
 
-    private void InitializeTiles() {
-        var coord = new Vector2Int();
-        for (coord.y = 0; coord.y < mapSize.y; coord.y++) {
-            for (coord.x = 0; coord.x < mapSize.x; coord.x++) {
+    private Vector2Int InstantiatePass(Vector2Int offset) {
+        var spawnCoord = new Vector2Int(0, Random.Range(0, mapSize.y));
+        for (var coord = Vector2Int.zero; coord.y < mapSize.y; coord.y++) {
+            var position = CalculatePosition(coord + offset);
+            var isWalkable = coord == spawnCoord;
+            var tile = Instantiate(
+                isWalkable ? walkableTilePrefab : nonWalkableTilePrefab,
+                position,
+                Quaternion.identity,
+                transform
+            );
+
+            tile.name = $"Tile {coord + offset}";
+            tileMap[coord.x + offset.x, coord.y + offset.y] = tile;
+        }
+        return spawnCoord + offset;
+    }
+
+    private void InitializeMap() {
+        for (var coord = Vector2Int.zero; coord.y < tileMap.GetLength(1); coord.y++) {
+            for (coord.x = 0; coord.x < tileMap.GetLength(0); coord.x++) {
                 var tile = tileMap[coord.x, coord.y];
                 tile.Initialize(tileMap, coord);
             }
