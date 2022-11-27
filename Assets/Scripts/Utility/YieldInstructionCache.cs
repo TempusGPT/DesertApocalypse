@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class YieldInstructionCache
-{
-    private class FloatComparer : IEqualityComparer<float>
-    {
-        bool IEqualityComparer<float>.Equals(float x, float y)
-        {
-            return x == y;
+public static class YieldInstructionCache {
+    private class FloatComparer : IEqualityComparer<float> {
+        bool IEqualityComparer<float>.Equals(float x, float y) {
+            return Mathf.Abs(x - y) < Mathf.Epsilon;
         }
 
         int IEqualityComparer<float>.GetHashCode(float obj)
@@ -19,12 +16,7 @@ public static class YieldInstructionCache
     private static readonly Dictionary<float, WaitForSeconds> _timeInterval =
         new Dictionary<float, WaitForSeconds>(new FloatComparer());
 
-    private static readonly WaitForFixedUpdate _fixedUpdate = new WaitForFixedUpdate();
-
-    public static WaitForFixedUpdate WaitForFixedUpdate() => _fixedUpdate;
-
-    public static WaitForSeconds WaitForSeconds(float seconds)
-    {
+    public static WaitForSeconds WaitForSeconds(float seconds) {
         WaitForSeconds wfs;
 
         if (!_timeInterval.TryGetValue(seconds, out wfs))
