@@ -697,6 +697,7 @@ GameObject:
   - component: {fileID: 507087961}
   - component: {fileID: 507087963}
   - component: {fileID: 507087962}
+  - component: {fileID: 507087964}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -790,6 +791,26 @@ MonoBehaviour:
     def: 0
     dodge: 0
     aim: 0
+--- !u!95 &507087964
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507087959}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fa5775726161dc2469daebf62322b77e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
