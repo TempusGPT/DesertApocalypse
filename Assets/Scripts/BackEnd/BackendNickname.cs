@@ -9,7 +9,7 @@ public class BackendNickname : MonoBehaviour
     Text text;
     void Start()
     {
-        text.text = Backend.UserNickName;
+        text.text = "NickName: "+ Backend.UserNickName;
     }
 
     // Update is called once per frame
