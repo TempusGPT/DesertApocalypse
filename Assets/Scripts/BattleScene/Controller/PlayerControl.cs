@@ -8,13 +8,22 @@ public class PlayerControl : EntityControlBase {
     public BattleEntity Player {
         get { return _player; }
     }
+    private bool _isDefeated = false;
 
     public override void Initialize() {
         _player.Initialize();
+
+        int randomType = Random.Range((int)WeaponType.WeaponTypeStarts + 2, (int)WeaponType.WeaponTypeEnds);
+        _player.SetupWeapon((WeaponType)randomType);
     }
 
     public override void Progress() {
-
+        if (_isDefeated)
+            return;
+        if (IsDefeated()) {
+            _isDefeated = true;
+            _player.StartDeadAnimation();
+        }
     }
 
     public float GetFillAmounts() {
@@ -22,7 +31,7 @@ public class PlayerControl : EntityControlBase {
     }
 
     public override bool IsDefeated() {
-        return false;
+        return _player.GetHPPercent() < Mathf.Epsilon;
     }
 
     public override IEnumerator DoAttack(BattleMain battleControl, System.Action uiSetupCallback) {

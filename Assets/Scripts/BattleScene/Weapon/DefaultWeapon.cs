@@ -10,4 +10,8 @@ public class DefaultWeapon : WeaponBase {
         int atk = caster.AttackPower + extraStatus.atk;
         receiver.ReceiveAttack(atk);
     }
+
+    public override string GetChangeTrigger() {
+        return null;
+    }
 }

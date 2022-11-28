@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5821d9269f7a5bb45849b9eafe5ffa09, type: 3}
   m_Name: SOShotgunWeapon
   m_EditorClassIdentifier: 
-  WeaponID: 105
+  WeaponID: 102
   extraStatus:
     maxHP: 0
     atk: 10

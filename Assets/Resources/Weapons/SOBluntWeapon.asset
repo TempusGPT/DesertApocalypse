@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponID: 106
   extraStatus:
-    maxHP: 0
-    atk: 0
+    maxHP: 10000
+    atk: 1000
     def: 0
+    dodge: 0
+    aim: 0

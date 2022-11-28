@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09523cd4ed09a845aa020a4c2262820, type: 3}
   m_Name: SOKatanaWeapon
   m_EditorClassIdentifier: 
-  WeaponID: 102
+  WeaponID: 104
   extraStatus:
     maxHP: 0
     atk: 0
     def: 0
+    dodge: 0
+    aim: 0
