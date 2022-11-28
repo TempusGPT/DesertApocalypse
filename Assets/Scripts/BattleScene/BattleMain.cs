@@ -44,21 +44,21 @@ public class BattleMain : MonoBehaviour {
     }
 
     public IEnumerator StartTurn() {
-        ++_turnCount;
+        while (!_playerControl.IsDefeated() && !_enemyControl.IsDefeated()) {
+            ++_turnCount;
 
-        EntityControlBase entity =
-            (_currentTurn == TurnInfo.PLAYER) ? _playerControl as EntityControlBase : _enemyControl as EntityControlBase;
-        yield return StartCoroutine(entity.DoAttack(this, SetupUI));
+            EntityControlBase entity =
+                (_currentTurn == TurnInfo.PLAYER) ? _playerControl as EntityControlBase : _enemyControl as EntityControlBase;
+            yield return StartCoroutine(entity.DoAttack(this, SetupUI));
 
-        EndTurn();
+            EndTurn();
+        }
     }
 
     public void EndTurn() {
         int curTurn = (int)_currentTurn;
         int nextTurn = (curTurn + 1) % 2;
         _currentTurn = (TurnInfo)nextTurn;
-
-        StartCoroutine(StartTurn());
     }
 
     private void SetupUI() {

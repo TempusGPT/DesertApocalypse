@@ -41,9 +41,20 @@ public class BattleEntity : MonoBehaviour {
         get { return _curHP; }
     }
 
+    private Animator _animatorController;
+
     public virtual void Initialize() {
         _curHP = _entityStatus.maxHP;
-        _currentWeapon = ResourceManager.GetInstance().GetWeapon(WeaponType.Default);
+        _animatorController = GetComponent<Animator>();
+    }
+
+    public void SetupWeapon(WeaponType type) {
+        _currentWeapon = ResourceManager.GetInstance().GetWeapon((WeaponType)type);
+        _animatorController.SetTrigger(_currentWeapon.GetChangeTrigger());
+    }
+
+    public void StartDeadAnimation() {
+        _animatorController.SetBool("isDead", true);
     }
 
     public float GetHPPercent() {
@@ -51,7 +62,12 @@ public class BattleEntity : MonoBehaviour {
     }
 
     public void DoAttack(EnemyControl receiverController) {
+        StartAttackAnimation();
         CurrentWeapon.Attack(this, receiverController);
+    }
+
+    public void StartAttackAnimation() {
+        _animatorController.SetTrigger("doAttack");
     }
 
     public void ReceiveAttack(int damage) {

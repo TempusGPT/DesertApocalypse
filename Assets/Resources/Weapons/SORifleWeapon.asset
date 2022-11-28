@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937a3b91b9df7064f9c84ed7e3f15714, type: 3}
   m_Name: SORifleWeapon
   m_EditorClassIdentifier: 
-  WeaponID: 104
+  WeaponID: 105
   extraStatus:
     maxHP: 0
     atk: 0
     def: 0
+    dodge: 0
+    aim: 0
