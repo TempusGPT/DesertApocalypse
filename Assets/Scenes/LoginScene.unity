@@ -861,7 +861,7 @@ RectTransform:
   - {fileID: 87963307}
   - {fileID: 1338962732}
   m_Father: {fileID: 1204224511}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1147,7 +1147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6153050687998103200, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6153050687998103200, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1231,31 +1231,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1204224512}
+      objectReference: {fileID: 1204224515}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PushPopup
+      value: TrySignIn
       objectReference: {fileID: 0}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PopopManager, Assembly-CSharp
+      value: BackendSignIn, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 481290915}
+      objectReference: {fileID: 0}
     - target: {fileID: 8676125545247345136, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8828927802248569400, guid: 643722d04dee94c46ba12170bd68073e, type: 3}
       propertyPath: m_Text
@@ -1926,6 +1926,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1204224511}
   - component: {fileID: 1204224514}
+  - component: {fileID: 1204224515}
   - component: {fileID: 1204224513}
   - component: {fileID: 1204224512}
   - component: {fileID: 1204224510}
@@ -2014,9 +2015,9 @@ RectTransform:
   - {fileID: 318404530}
   - {fileID: 1786857451}
   - {fileID: 7598943767472340962}
+  - {fileID: 969300025}
   - {fileID: 481290916}
   - {fileID: 2074771527}
-  - {fileID: 969300025}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2063,6 +2064,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5a17b1944bf0245ad7a09896df0678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1204224515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204224507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0473ccced5bcedc47af2bc39cafc69e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 2054184981}
+  password: {fileID: 1119505268}
 --- !u!1 &1212912036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2996,7 +3011,7 @@ RectTransform:
   m_Children:
   - {fileID: 1200543762}
   m_Father: {fileID: 1204224511}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
