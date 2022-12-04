@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceManager : Singleton<ResourceManager> {
+    #region Path
     private static readonly string EnemyPath = "Enemies/";
     private static readonly string LevelPath = "Levels/";
     private static readonly string WeaponPath = "Weapons/";
+    #endregion
 
+    #region Field
     private Dictionary<int, BattleEntity> _enemyCacheDic;
     private Dictionary<WeaponType, WeaponBase> _weaponCacheDic;
     private SOLevelInfo[] _levels;
+    #endregion
 
     #region Initialize
     public void Initialize() {

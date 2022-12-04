@@ -10,7 +10,8 @@ public class EnemyControl : EntityControlBase {
     public override void Initialize() {
         var resourceManager = ResourceManager.GetInstance();
         SOLevelInfo levelInfo = resourceManager.GetLevel(1);
-        RoomInfo room = levelInfo.roomInformation[Random.Range(0, levelInfo.roomInformation.Length)];
+        int randomRoomIdx = Random.Range(0, levelInfo.roomInformation.Length);
+        RoomInfo room = levelInfo.roomInformation[randomRoomIdx];
         _currentEnemies = new List<BattleEntity>();
 
         for (int i = 0; i < room.enemyID.Length; ++i) {
