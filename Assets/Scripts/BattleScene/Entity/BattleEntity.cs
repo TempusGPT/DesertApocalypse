@@ -53,8 +53,17 @@ public class BattleEntity : MonoBehaviour {
         _animatorController.SetTrigger(_currentWeapon.GetChangeTrigger());
     }
 
+    public void SetupWeapon(WeaponBase weapon) {
+        _currentWeapon = weapon;
+        _animatorController.SetTrigger(_currentWeapon.GetChangeTrigger());
+    }
+
     public void StartDeadAnimation() {
         _animatorController.SetBool("isDead", true);
+    }
+
+    public void StartHitAnimation() {
+        _animatorController.SetTrigger("hit");
     }
 
     public float GetHPPercent() {
@@ -67,10 +76,12 @@ public class BattleEntity : MonoBehaviour {
     }
 
     public void StartAttackAnimation() {
+        SetupWeapon(_currentWeapon);
         _animatorController.SetTrigger("doAttack");
     }
 
     public void ReceiveAttack(int damage) {
+        StartHitAnimation();
         DecreaseHP(damage);
     }
 
