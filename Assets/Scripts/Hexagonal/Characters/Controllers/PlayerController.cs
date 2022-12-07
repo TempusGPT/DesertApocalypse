@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public static event Action<Tile> OnInitialize;
     public static event Action<Tile> OnMove;
 
+    private Transform cameraTransform;
     private TileTransform TileTransform { get; set; }
 
     private void Awake() {
@@ -15,7 +16,20 @@ public class PlayerController : MonoBehaviour {
         TileTransform.OnTileSet += NotifyMove;
     }
 
+    private void LateUpdate() {
+        if (cameraTransform is null) {
+            return;
+        }
+
+        cameraTransform.position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            cameraTransform.position.z
+        );
+    }
+
     public void Initialize(Tile tile) {
+        cameraTransform = Camera.main.transform;
         TileTransform.Tile = tile;
         OnInitialize?.Invoke(tile);
     }
