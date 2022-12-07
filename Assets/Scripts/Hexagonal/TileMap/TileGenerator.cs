@@ -100,9 +100,9 @@ public class TileGenerator : MonoBehaviour {
     }
 
     private static Vector3 CalculatePosition(Vector2Int coord) {
-        var result = new Vector3(coord.x * 1.5f, coord.y * 1.5f, 0);
+        var result = new Vector3(coord.x * 0.58f, coord.y * 0.64f, 0);
         if (coord.x % 2 == 1) {
-            result.y -= 0.75f;
+            result.y -= 0.32f;
         }
         return result;
     }
