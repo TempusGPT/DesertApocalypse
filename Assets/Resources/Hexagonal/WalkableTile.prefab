@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a8c434101d642118d9762dc69b4a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eyesightDisplay: {fileID: 4101464593301888710}
+  eyesightDisplay: {fileID: 6304315322327642026}
   <IsWalkable>k__BackingField: 1
 --- !u!212 &8843939736229616343
 SpriteRenderer:
@@ -133,7 +133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4093820278410190186
 Transform:
   m_ObjectHideFlags: 0

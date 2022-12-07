@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,12 +9,13 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
     public static event Action<Tile> OnClick;
 
     [SerializeField]
-    private GameObject eyesightDisplay;
+    private SpriteRenderer eyesightDisplay;
 
     [field: SerializeField]
     public bool IsWalkable { get; private set; }
 
     private readonly Dictionary<TileDirection, Tile> nearTilesMap = new();
+    private Tween eyesightTween;
 
     public IEnumerable<Tile> NearWalkableTiles =>
         nearTilesMap.Values.Where(tile => tile.IsWalkable);
@@ -70,7 +72,11 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
     private void HandleEyesightDisplay(Tile playerTile) {
         var playerNear = this == playerTile ||
             nearTilesMap.Values.Any(tile => tile == playerTile);
-        eyesightDisplay.SetActive(!playerNear);
+
+        eyesightTween?.Kill();
+        eyesightTween = eyesightDisplay
+            .DOFade(playerNear ? 0f : 0.75f, 3f)
+            .SetSpeedBased();
     }
 
     public static float Distance(Tile a, Tile b) {

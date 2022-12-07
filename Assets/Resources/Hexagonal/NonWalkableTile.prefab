@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8639645155140358647
 Transform:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5a8c434101d642118d9762dc69b4a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eyesightDisplay: {fileID: 198758883780242355}
+  eyesightDisplay: {fileID: 8849606189924991019}
   <IsWalkable>k__BackingField: 0
 --- !u!212 &4511136453896794833
 SpriteRenderer:
