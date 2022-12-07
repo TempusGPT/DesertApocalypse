@@ -58,7 +58,7 @@ public class TileGenerator : MonoBehaviour {
         for (var coord = Vector2Int.zero; coord.y < mapSize.y; coord.y++) {
             for (coord.x = 0; coord.x < mapSize.x; coord.x++) {
                 var position = CalculatePosition(coord + offset);
-                var isWalkable = Random.Range(0, 2) == 0;
+                var isWalkable = Random.value <= 0.75f;
                 var tile = Instantiate(
                     isWalkable ? walkableTilePrefab : nonWalkableTilePrefab,
                     position,

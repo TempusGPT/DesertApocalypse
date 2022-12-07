@@ -75,7 +75,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
 
         eyesightTween?.Kill();
         eyesightTween = eyesightDisplay
-            .DOFade(playerNear ? 0f : 0.75f, 3f)
+            .DOFade(playerNear ? 0f : 0.75f, 7.5f)
             .SetSpeedBased();
     }
 
