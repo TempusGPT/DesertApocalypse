@@ -44,7 +44,7 @@ public class BattleEntity : MonoBehaviour {
     private Animator _animatorController;
 
     public virtual void Initialize() {
-        _curHP = _entityStatus.maxHP;
+        _curHP = PlayerControl.PlayerHP;
         _animatorController = GetComponent<Animator>();
     }
 
@@ -87,5 +87,6 @@ public class BattleEntity : MonoBehaviour {
 
     protected void DecreaseHP(int amount) {
         _curHP = Mathf.Max(_curHP - amount, 0);
+        PlayerControl.PlayerHP = _curHP;
     }
 }

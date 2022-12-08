@@ -22,11 +22,21 @@ public class EnemyControl : EntityControlBase {
             int randomType = Random.Range((int)WeaponType.WeaponTypeStarts + 2, (int)WeaponType.WeaponTypeEnds);
             enemy.Initialize();
             enemy.SetupWeapon((WeaponType)randomType);
+            enemy.gameObject.SetActive(false);
 
             _currentEnemies.Add(enemy);
         }
 
         _fillAmounts = new float[_currentEnemies.Count];
+    }
+
+    public IEnumerator SpawnEnemy() {
+        foreach (var enemy in _currentEnemies) {
+            enemy.gameObject.SetActive(true);
+
+            yield return YieldInstructionCache.WaitForSeconds(0.7f);
+        }
+        yield break;
     }
 
     public override void Progress() {
@@ -72,6 +82,10 @@ public class EnemyControl : EntityControlBase {
             var player = battleControl.PlayerCtrl.Player;
             player.ReceiveAttack(enemy.AttackPower);
             uiSetupCallback.Invoke();
+
+            if (player.GetHPPercent() < Mathf.Epsilon) {
+                break;
+            }
 
             yield return YieldInstructionCache.WaitForSeconds(0.5f);
         }
