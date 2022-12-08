@@ -11,16 +11,19 @@ public class TileGenerator : MonoBehaviour {
     [SerializeField]
     private int phaseCount;
 
-    private Tile[,] tileMap;
+    private static Tile[,] tileMap;
+    private static bool isTileInitialized = false;
 
     private PlayerController playerPrefab;
     private EnemyController zakoPrefab;
     private EnemyController bossPrefab;
     private Tile walkableTilePrefab;
     private Tile nonWalkableTilePrefab;
+    private static List<Vector2Int> bossCoords;
 
     private void Awake() {
-        tileMap = new Tile[mapSize.x * phaseCount + phaseCount + 1, mapSize.y];
+        if (tileMap == null)
+            tileMap = new Tile[mapSize.x * phaseCount + phaseCount + 1, mapSize.y];
         playerPrefab = Resources.Load<PlayerController>("Hexagonal/PlayerCharacter");
         zakoPrefab = Resources.Load<EnemyController>("Hexagonal/ZakoEnemy");
         bossPrefab = Resources.Load<EnemyController>("Hexagonal/BossEnemy");
@@ -30,16 +33,29 @@ public class TileGenerator : MonoBehaviour {
 
     private void Start() {
         var playerCoord = InstantiatePass(Vector2Int.zero);
-        var bossCoords = InstantiateMap();
-        InitializeMap();
+        if (PlayerController.CurrentTile == null) {
+            PlayerController.CurrentTile = tileMap[playerCoord.x, playerCoord.y];
+        }
+        
+        if (bossCoords == null) {
+            bossCoords = InstantiateMap();
+        }
+        else if (bossCoords.Count > 0) {
+            bossCoords.RemoveAt(0);
+        }
 
-        Instantiate(playerPrefab).Initialize(tileMap[playerCoord.x, playerCoord.y]);
+        if (!isTileInitialized) {
+            isTileInitialized = true;
+            InitializeMap();
+        }
+
+        Instantiate(playerPrefab).Initialize(PlayerController.CurrentTile);
         foreach (var bossCoord in bossCoords) {
             Instantiate(bossPrefab).Initialize(tileMap[bossCoord.x, bossCoord.y]);
         }
     }
 
-    private IEnumerable<Vector2Int> InstantiateMap() {
+    private List<Vector2Int> InstantiateMap() {
         var bossCoords = new List<Vector2Int>();
         var offset = Vector2Int.zero;
 

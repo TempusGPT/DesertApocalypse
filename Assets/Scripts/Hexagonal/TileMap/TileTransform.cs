@@ -41,6 +41,7 @@ public class TileTransform : MonoBehaviour {
                 return;
             }
         }
+        PlayerController.anim?.SetBool("isRunning", false);
         targetTile = null;
     }
 
