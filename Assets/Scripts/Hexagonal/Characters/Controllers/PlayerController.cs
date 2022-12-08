@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(TileTransform))]
 public class PlayerController : MonoBehaviour {
@@ -9,11 +10,17 @@ public class PlayerController : MonoBehaviour {
 
     private Transform cameraTransform;
     private TileTransform TileTransform { get; set; }
+    private Image gaugeImage;
+    public static Animator anim;
+    public static Tile CurrentTile;
 
     private void Awake() {
         TileTransform = GetComponent<TileTransform>();
         Tile.OnClick += MoveToClickedTile;
         TileTransform.OnTileSet += NotifyMove;
+        gaugeImage = GameObject.Find("Gauge").GetComponent<Image>();
+        gaugeImage.fillAmount = (float)PlayerControl.PlayerHP / 100f;
+        anim = GetComponentInChildren<Animator>();
     }
 
     private void LateUpdate() {
@@ -38,6 +45,7 @@ public class PlayerController : MonoBehaviour {
         if (!tile.IsWalkable) {
             return;
         }
+        anim?.SetBool("isRunning", true);
         TileTransform.MoveTo(tile).Forget();
     }
 

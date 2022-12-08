@@ -69,6 +69,14 @@ public class BattleMain : MonoBehaviour {
 
             EndTurn();
         }
+
+        if (_playerControl.IsDefeated()) {
+            SceneSwitcher.ChangeScene();
+            //SceneSwitcher.ChangeScene(4);
+        }
+        if (_enemyControl.IsDefeated()) {
+            SceneSwitcher.ChangeScene();
+        }
     }
 
     public void EndTurn() {

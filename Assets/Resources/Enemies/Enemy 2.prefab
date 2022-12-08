@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityID: 12
   _entityStatus:
-    maxHP: 100
+    maxHP: 60
     atk: 10
     def: 0
     dodge: 0

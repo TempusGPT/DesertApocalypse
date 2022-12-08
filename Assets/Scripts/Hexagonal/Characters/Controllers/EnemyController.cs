@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour {
     private void Awake() {
         TileTransform = GetComponent<TileTransform>();
         PlayerController.OnMove += HandlePlayerMove;
+
+        OnMeetPlayer += SceneSwitcher.ChangeScene;
     }
 
     public void Initialize(Tile tile) {
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     private void HandlePlayerMove(Tile playerTile) {
+        PlayerController.CurrentTile = playerTile;
         if (playerTile == TileTransform.Tile) {
             Debug.Log("Player met enemy");
             OnMeetPlayer?.Invoke();
