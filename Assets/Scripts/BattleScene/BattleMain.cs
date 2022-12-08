@@ -23,6 +23,8 @@ public class BattleMain : MonoBehaviour {
 
     private ObserverSubject<BattleUIArgs> _onSkillUsedEvent;
 
+    [SerializeField] private GameObject _battleStartUI = null;
+
     private void Awake() {
         ResourceManager.GetInstance().Initialize();
     }
@@ -35,12 +37,26 @@ public class BattleMain : MonoBehaviour {
         _onSkillUsedEvent = new ObserverSubject<BattleUIArgs>();
         _onSkillUsedEvent.Subscribe_And_Listen_CurrentData += GetComponent<BattleUI>().OnSkillUsed;
 
-        StartCoroutine(StartTurn());
+        StartCoroutine(StartBattle());
     }
 
     void Update() {
         _playerControl.Progress();
         _enemyControl.Progress();
+    }
+
+    private IEnumerator StartBattle() {
+        _battleStartUI.SetActive(true);
+
+        yield return YieldInstructionCache.WaitForSeconds(1f);
+
+        yield return StartCoroutine(_enemyControl.SpawnEnemy());
+
+        yield return YieldInstructionCache.WaitForSeconds(0.5f);
+
+        _battleStartUI.SetActive(false);
+
+        StartCoroutine(StartTurn());
     }
 
     public IEnumerator StartTurn() {
