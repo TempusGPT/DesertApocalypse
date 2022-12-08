@@ -35,4 +35,10 @@ public class Move : MonoBehaviour
     {
         move();
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.name.Equals("portal1")) {
+            SceneSwitcher.ChangeScene();
+        }
+    }
 }

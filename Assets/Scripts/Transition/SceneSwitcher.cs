@@ -21,6 +21,15 @@ public static class SceneSwitcher {
         TransitionKit.instance.transitionWithDelegate( transition );
     }
 
+    public static void ChangeGameoverScene() {
+        var transition = new FadeTransition() {
+            nextScene = 4,
+            fadedDelay = 0.2f,
+            fadeToColor = Color.black
+        };
+        TransitionKit.instance.transitionWithDelegate( transition );
+    }
+
     private static int GetSceneNumber(int sceneNumber) {
         if (sceneNumber < 3) {
             return sceneNumber + 1;

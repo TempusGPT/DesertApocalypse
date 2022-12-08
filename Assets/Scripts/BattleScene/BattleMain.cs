@@ -71,8 +71,7 @@ public class BattleMain : MonoBehaviour {
         }
 
         if (_playerControl.IsDefeated()) {
-            SceneSwitcher.ChangeScene();
-            //SceneSwitcher.ChangeScene(4);
+            SceneSwitcher.ChangeGameoverScene();
         }
         if (_enemyControl.IsDefeated()) {
             SceneSwitcher.ChangeScene();
