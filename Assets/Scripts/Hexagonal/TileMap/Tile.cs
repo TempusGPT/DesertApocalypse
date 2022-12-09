@@ -16,6 +16,7 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
 
     private readonly Dictionary<TileDirection, Tile> nearTilesMap = new();
     private Tween eyesightTween;
+    public int r, c;
 
     public IEnumerable<Tile> NearWalkableTiles =>
         nearTilesMap.Values.Where(tile => tile.IsWalkable);
@@ -31,6 +32,11 @@ public class Tile : MonoBehaviour, IPointerClickHandler {
             var offset = DirectionToOffset(direction, xEven);
             AddNearTile(tileMap, coord, offset, direction);
         }
+    }
+
+    public void ReInitialize(Tile[,] tileMap, Vector2Int coord) {
+        nearTilesMap.Clear();
+        Initialize(tileMap, coord);
     }
 
     private void AddNearTile(

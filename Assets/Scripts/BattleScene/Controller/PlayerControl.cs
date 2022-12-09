@@ -14,6 +14,7 @@ public class PlayerControl : EntityControlBase {
 
     public override void Initialize() {
         _player.Initialize();
+        _player.CurHP = PlayerControl.PlayerHP;
         SetToRandomWeapon();        
     }
 

@@ -11,8 +11,9 @@ public class TileGenerator : MonoBehaviour {
     [SerializeField]
     private int phaseCount;
 
-    private static Tile[,] tileMap;
+    private Tile[,] tileMap;
     private static bool isTileInitialized = false;
+    public static bool ReGenerate = false;
 
     private PlayerController playerPrefab;
     private EnemyController zakoPrefab;
@@ -20,10 +21,37 @@ public class TileGenerator : MonoBehaviour {
     private Tile walkableTilePrefab;
     private Tile nonWalkableTilePrefab;
     private static List<Vector2Int> bossCoords;
+    public static Transform tileParent;
 
     private void Awake() {
-        if (tileMap == null)
-            tileMap = new Tile[mapSize.x * phaseCount + phaseCount + 1, mapSize.y];
+        tileMap = new Tile[mapSize.x * phaseCount + phaseCount + 1, mapSize.y];
+
+        tileParent = GameObject.Find("tileParentParent")?.transform.GetChild(0).transform;
+        tileParent?.gameObject.SetActive(true);
+
+        if (ReGenerate) {
+            ReGenerate = false;
+            PlayerController.CurrentTile = null;
+            bossCoords = null;
+            isTileInitialized = false;
+
+            if (tileParent)
+                DestroyImmediate(tileParent.parent.gameObject);
+            tileParent = null;
+        }
+
+        if (tileParent == null) {
+            tileParent = new GameObject("TileParent").transform;
+            tileParent.parent = new GameObject("tileParentParent").transform;
+            DontDestroyOnLoad(tileParent.parent);
+        }
+        else {
+            for (int i = 0; i < tileParent.childCount; ++i) {
+                Tile tile = tileParent.GetChild(i).GetComponent<Tile>();
+                tileMap[tile.r, tile.c] = tile;
+            }
+        }
+
         playerPrefab = Resources.Load<PlayerController>("Hexagonal/PlayerCharacter");
         zakoPrefab = Resources.Load<EnemyController>("Hexagonal/ZakoEnemy");
         bossPrefab = Resources.Load<EnemyController>("Hexagonal/BossEnemy");
@@ -31,9 +59,16 @@ public class TileGenerator : MonoBehaviour {
         nonWalkableTilePrefab = Resources.Load<Tile>("Hexagonal/NonWalkableTile");
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.R)) {
+            ReGenerate = true;
+            SceneSwitcher.ReLoadScene();
+        }
+    }
+
     private void Start() {
-        var playerCoord = InstantiatePass(Vector2Int.zero);
         if (PlayerController.CurrentTile == null) {
+            var playerCoord = InstantiatePass(Vector2Int.zero);
             PlayerController.CurrentTile = tileMap[playerCoord.x, playerCoord.y];
         }
         
@@ -41,17 +76,45 @@ public class TileGenerator : MonoBehaviour {
             bossCoords = InstantiateMap();
         }
         else if (bossCoords.Count > 0) {
+            Vector2Int p = bossCoords[0];
+            Vector3 position = CalculatePosition(bossCoords[0]);
+            Destroy(tileMap[bossCoords[0].x, bossCoords[0].y].gameObject);
             bossCoords.RemoveAt(0);
+
+            GameObject obj = GameObject.Find("Boss " + (phaseCount - bossCoords.Count).ToString());
+            Destroy(obj);
+
+            var tile = Instantiate(
+                walkableTilePrefab,
+                position,
+                Quaternion.identity,
+                tileParent
+            );
+
+            tile.name = $"Tile {p}";
+            tile.r = (p).x;
+            tile.c = (p).y;
+            tileMap[p.x, p.y] = tile;
+
+            PlayerController.CurrentTile = tile;
         }
 
         if (!isTileInitialized) {
             isTileInitialized = true;
             InitializeMap();
         }
+        else {
+            foreach (Tile t in tileMap) {
+                t.ReInitialize(tileMap, new Vector2Int(t.r, t.c));
+            }
+        }
 
         Instantiate(playerPrefab).Initialize(PlayerController.CurrentTile);
+        int i = 0;
         foreach (var bossCoord in bossCoords) {
-            Instantiate(bossPrefab).Initialize(tileMap[bossCoord.x, bossCoord.y]);
+            EnemyController boss = Instantiate(bossPrefab);
+            boss.Initialize(tileMap[bossCoord.x, bossCoord.y]);
+            boss.gameObject.name = "Boss " + (i++).ToString();
         }
     }
 
@@ -79,10 +142,12 @@ public class TileGenerator : MonoBehaviour {
                     isWalkable ? walkableTilePrefab : nonWalkableTilePrefab,
                     position,
                     Quaternion.identity,
-                    transform
+                    tileParent
                 );
 
                 tile.name = $"Tile {coord + offset}";
+                tile.r = (coord + offset).x;
+                tile.c = (coord + offset).y;
                 tileMap[coord.x + offset.x, coord.y + offset.y] = tile;
             }
         }
@@ -97,10 +162,12 @@ public class TileGenerator : MonoBehaviour {
                 isWalkable ? walkableTilePrefab : nonWalkableTilePrefab,
                 position,
                 Quaternion.identity,
-                transform
+                tileParent
             );
 
             tile.name = $"Tile {coord + offset}";
+            tile.r = (coord + offset).x;
+            tile.c = (coord + offset).y;
             tileMap[coord.x + offset.x, coord.y + offset.y] = tile;
         }
         return spawnCoord + offset;
@@ -110,7 +177,7 @@ public class TileGenerator : MonoBehaviour {
         for (var coord = Vector2Int.zero; coord.y < tileMap.GetLength(1); coord.y++) {
             for (coord.x = 0; coord.x < tileMap.GetLength(0); coord.x++) {
                 var tile = tileMap[coord.x, coord.y];
-                tile.Initialize(tileMap, coord);
+                tile.ReInitialize(tileMap, coord);
             }
         }
     }

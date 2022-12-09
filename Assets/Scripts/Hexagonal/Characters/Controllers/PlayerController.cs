@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour {
     public static event Action<Tile> OnMove;
 
     private Transform cameraTransform;
-    private TileTransform TileTransform { get; set; }
+    public TileTransform TileTransform { get; set; }
     private Image gaugeImage;
     public static Animator anim;
     public static Tile CurrentTile;

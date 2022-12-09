@@ -15,7 +15,7 @@ MonoBehaviour:
   WeaponID: 106
   extraStatus:
     maxHP: 30
-    atk: 5
+    atk: 15
     def: 0
     dodge: 0
     aim: 0
