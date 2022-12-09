@@ -929,7 +929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityID: 0
   _entityStatus:
-    maxHP: 100
+    maxHP: 300
     atk: 15
     def: 0
     dodge: 0

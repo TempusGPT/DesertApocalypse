@@ -10,7 +10,8 @@ public class PlayerControl : EntityControlBase {
     }
     private bool _isDefeated = false;
 
-    public static int PlayerHP = 100;
+    public static readonly int MaxHP = 300;
+    public static int PlayerHP = MaxHP;
 
     public override void Initialize() {
         _player.Initialize();

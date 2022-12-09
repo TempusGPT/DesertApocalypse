@@ -14,7 +14,7 @@ public class Move : MonoBehaviour
     private bool isRunning;
     private void Start() {
         TileGenerator.ReGenerate = true;
-        PlayerControl.PlayerHP = 100;
+        PlayerControl.PlayerHP = PlayerControl.MaxHP;
     }
     private void move()
     {
