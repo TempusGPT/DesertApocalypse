@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleMain : MonoBehaviour {
     public enum TurnInfo {
@@ -24,6 +25,10 @@ public class BattleMain : MonoBehaviour {
     private ObserverSubject<BattleUIArgs> _onSkillUsedEvent;
 
     [SerializeField] private GameObject _battleStartUI = null;
+
+    [SerializeField] private Button[] _playerButton = null;
+
+    private bool _startAttack;
 
     private void Awake() {
         ResourceManager.GetInstance().Initialize();
@@ -52,6 +57,8 @@ public class BattleMain : MonoBehaviour {
 
         yield return StartCoroutine(_enemyControl.SpawnEnemy());
 
+        SetupUI();
+
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
 
         _battleStartUI.SetActive(false);
@@ -63,8 +70,20 @@ public class BattleMain : MonoBehaviour {
         while (!_playerControl.IsDefeated() && !_enemyControl.IsDefeated()) {
             ++_turnCount;
 
+            foreach (Button btn in _playerButton) {
+                btn.interactable = (_currentTurn == TurnInfo.PLAYER);
+            }
+
+            if (_currentTurn == TurnInfo.ENEMY) {
+                _startAttack = true;
+            }
+
+            yield return new WaitUntil(() => _startAttack );
+            _startAttack = false;
+
             EntityControlBase entity =
                 (_currentTurn == TurnInfo.PLAYER) ? _playerControl as EntityControlBase : _enemyControl as EntityControlBase;
+
             yield return StartCoroutine(entity.DoAttack(this, SetupUI));
 
             EndTurn();
@@ -88,5 +107,15 @@ public class BattleMain : MonoBehaviour {
         float playerHP = _playerControl.GetFillAmounts();
         float[] enemyHP = _enemyControl.GetFillAmounts();
         _onSkillUsedEvent.DoNotify(new BattleUIArgs(playerHP, enemyHP));
+    }
+
+    public void StartAttack() {
+        _startAttack = true;
+    }
+
+    public void ChangeWeapon() {
+        EndTurn();
+        _startAttack = true;
+        _playerControl.SetToRandomWeapon();
     }
 }

@@ -14,9 +14,18 @@ public class PlayerControl : EntityControlBase {
 
     public override void Initialize() {
         _player.Initialize();
+        SetToRandomWeapon();        
+    }
 
-        int randomType = Random.Range((int)WeaponType.WeaponTypeStarts + 2, (int)WeaponType.WeaponTypeEnds);
-        _player.SetupWeapon((WeaponType)randomType);
+    public void SetToRandomWeapon() {
+        while (true) {
+            int randomType = Random.Range((int)WeaponType.WeaponTypeStarts + 2, (int)WeaponType.WeaponTypeEnds);
+            WeaponType type = (WeaponType)randomType;
+            if (!_player.CurrentWeapon || (type != _player.CurrentWeapon.WeaponID)) {
+                _player.SetupWeapon(type);
+                break;
+            }
+        }
     }
 
     public override void Progress() {

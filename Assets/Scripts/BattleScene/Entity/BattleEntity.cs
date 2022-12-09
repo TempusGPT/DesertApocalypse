@@ -58,6 +58,10 @@ public class BattleEntity : MonoBehaviour {
         _animatorController.SetTrigger(_currentWeapon.GetChangeTrigger());
     }
 
+    public void ReSetupWeapon() {
+        _animatorController.SetTrigger(_currentWeapon.GetChangeTrigger());
+    }
+
     public void StartDeadAnimation() {
         _animatorController.SetBool("isDead", true);
     }
