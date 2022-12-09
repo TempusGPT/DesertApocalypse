@@ -24,7 +24,7 @@ public class BattleMain : MonoBehaviour {
 
     private ObserverSubject<BattleUIArgs> _onSkillUsedEvent;
 
-    [SerializeField] private GameObject _battleStartUI = null;
+    [SerializeField] private GameObject _battleStartUI = null, _battleEndUI = null;
 
     [SerializeField] private Button[] _playerButton = null;
 
@@ -89,10 +89,16 @@ public class BattleMain : MonoBehaviour {
             EndTurn();
         }
 
+        _playerControl.Refresh();
+
         if (_playerControl.IsDefeated()) {
             SceneSwitcher.ChangeGameoverScene();
         }
         if (_enemyControl.IsDefeated()) {
+            _battleEndUI.gameObject.SetActive(true);
+
+            yield return YieldInstructionCache.WaitForSeconds(1f);
+
             SceneSwitcher.ChangeScene();
         }
     }

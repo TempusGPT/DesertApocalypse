@@ -85,12 +85,13 @@ public class BattleEntity : MonoBehaviour {
     }
 
     public void ReceiveAttack(int damage) {
-        StartHitAnimation();
         DecreaseHP(damage);
     }
 
     protected void DecreaseHP(int amount) {
+        if (amount > 0) {
+            StartHitAnimation();
+        }
         _curHP = Mathf.Max(_curHP - amount, 0);
-        PlayerControl.PlayerHP = _curHP;
     }
 }

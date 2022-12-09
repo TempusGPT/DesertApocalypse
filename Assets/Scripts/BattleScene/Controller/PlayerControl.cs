@@ -56,4 +56,8 @@ public class PlayerControl : EntityControlBase {
 
         yield return YieldInstructionCache.WaitForSeconds(0.5f);
     }
+
+    public void Refresh() {
+        PlayerHP = _player.CurHP;
+    }
 }
