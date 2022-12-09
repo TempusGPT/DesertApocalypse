@@ -21,6 +21,7 @@ public class BackendSignUp : MonoBehaviour
         {
             popopManager.ClosePopup();
             message.ShowMessage("회원가입을 완료했습니다.");
+            Backend.BMember.CreateNickname(nickname.text);
         }
         else
         {
@@ -38,6 +39,7 @@ public class BackendSignUp : MonoBehaviour
             else
             {
                 message.ShowMessage(callback.GetMessage());
+
             }
         });*/
     }
