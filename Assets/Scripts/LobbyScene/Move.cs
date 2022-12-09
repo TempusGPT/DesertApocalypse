@@ -12,6 +12,10 @@ public class Move : MonoBehaviour
     private SpriteRenderer sprite;
 
     private bool isRunning;
+    private void Start() {
+        TileGenerator.ReGenerate = true;
+        PlayerControl.PlayerHP = 100;
+    }
     private void move()
     {
         if (Input.GetKey(KeyCode.LeftArrow))

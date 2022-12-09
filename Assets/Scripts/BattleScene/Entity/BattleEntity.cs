@@ -30,7 +30,6 @@ public class BattleEntity : MonoBehaviour {
         get { return _entityStatus.atk; }
     }
 
-    private int _maxHP;
     private int _curHP;
     private WeaponBase _currentWeapon = null;
     public WeaponBase CurrentWeapon {
@@ -38,13 +37,14 @@ public class BattleEntity : MonoBehaviour {
     }
 
     public int CurHP {
+        set { _curHP = value; }
         get { return _curHP; }
     }
 
     private Animator _animatorController;
 
     public virtual void Initialize() {
-        _curHP = PlayerControl.PlayerHP;
+        _curHP = _entityStatus.maxHP;
         _animatorController = GetComponent<Animator>();
     }
 

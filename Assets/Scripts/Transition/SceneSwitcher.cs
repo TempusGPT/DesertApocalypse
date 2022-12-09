@@ -10,6 +10,11 @@ public static class SceneSwitcher {
         ChangeScene(sceneNumber);
     }
 
+    public static void ReLoadScene() {
+        int sceneNumber = SceneManager.GetActiveScene().buildIndex;
+        ChangeScene(sceneNumber);
+    }
+
     public static void ChangeScene(int sceneNumber) {
         var transition = new FishEyeTransition() {
             nextScene = sceneNumber,
